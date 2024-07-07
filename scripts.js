@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
   ];
 
   function handleCellClick(cell, index) {
-    if (gameState[index] !== '' || !gameActive) return;
+    if (!gameActive || cell.textContent !== '') return;
 
     gameState[index] = currentPlayer;
     cell.textContent = currentPlayer;
