@@ -35,6 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
       if (gameState[a] && gameState[a] === gameState[b] && gameState[a] === gameState[c]) {
         gameActive = false;
         status.textContent = `Player ${gameState[a]} wins!`;
+        highlightWinningCells(condition); // Optional: Highlight winning cells
         return;
       }
     }
@@ -45,12 +46,21 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
+  function highlightWinningCells(cells) {
+    cells.forEach(index => {
+      document.querySelector(`[data-cell="${index}"]`).classList.add('win');
+    });
+  }
+
   function restartGame() {
     currentPlayer = 'X';
     gameActive = true;
     gameState = ['', '', '', '', '', '', '', '', ''];
     status.textContent = `Player ${currentPlayer}'s turn`;
-    cells.forEach(cell => cell.textContent = '');
+    cells.forEach(cell => {
+      cell.textContent = '';
+      cell.classList.remove('win'); // Remove any previous winning cell highlighting
+    });
   }
 
   cells.forEach((cell, index) => {
